@@ -64,15 +64,11 @@ let  drinkStorage = new ObjStorageClass();
 let  dishStorage = new ObjStorageClass();
 
 function addObj (storage, nameLS) {
+    let obj = storage.getLS(nameLS);
     
-    if (Object.keys(storage).length !== 0) {
-        let obj = storage.getLS(nameLS);
-    
-        for(let i in obj) {
-            storage.addValue(i, obj[i]);
-        }  
-    }
-
+    for(let i in obj) {
+        storage.addValue(i, obj[i]);
+    }  
 }
 
 addObj(drinkStorage, objText.drinkText.nameLS);
