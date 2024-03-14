@@ -82,7 +82,7 @@ let getDrinkInfoBtn = document.getElementById("getDrinkInformation");
 getDrinkInfoBtn.addEventListener("click", ()=>{getInformation(objText.drinkText, drinkStorage);});
 
 let delDrinkInfoBtn = document.getElementById("deleteDrinkInformation");
-delDrinkInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.drinkText, drinkStorage, objText.dishText.nameLS);});
+delDrinkInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.drinkText, drinkStorage, objText.drinkText.nameLS);});
 
 let getDrinkNameBtn = document.getElementById("getDrinkName");
 getDrinkNameBtn.addEventListener("click", ()=>{getName(drinkStorage);});
