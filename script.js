@@ -82,7 +82,7 @@ let getDrinkInfoBtn = document.getElementById("getDrinkInformation");
 getDrinkInfoBtn.addEventListener("click", ()=>{getInformation(objText.drinkText, drinkStorage);});
 
 let delDrinkInfoBtn = document.getElementById("deleteDrinkInformation");
-delDrinkInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.drinkText, drinkStorage);});
+delDrinkInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.drinkText, drinkStorage, objText.dishText.nameLS);});
 
 let getDrinkNameBtn = document.getElementById("getDrinkName");
 getDrinkNameBtn.addEventListener("click", ()=>{getName(drinkStorage);});
@@ -95,7 +95,7 @@ let getDishInfoBtn = document.getElementById("getDishInformation");
 getDishInfoBtn.addEventListener("click", ()=>{getInformation(objText.dishText, dishStorage);});
 
 let delDishInfoBtn = document.getElementById("deleteDishInformation");
-delDishInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.dishText, dishStorage);});
+delDishInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.dishText, dishStorage, objText.dishText.nameLS);});
 
 let getDishNameBtn = document.getElementById("getDishName");
 getDishNameBtn.addEventListener("click", ()=>{getName(dishStorage);});
