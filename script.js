@@ -21,6 +21,17 @@ class ObjStorageClass {
     getKeys () {
         return Object.keys(this.obj);
     }
+
+    saveLS (nameLS) {
+        localStorage.setItem(`${nameLS}`,JSON.stringify(this.obj));
+    }
+
+    getLS (nameLS) {
+        let objJson = localStorage.getItem(`${nameLS}`);
+        if(objJson) {
+            return JSON.parse(objJson);
+        }
+    }
 }
 
 let objText = {
@@ -33,6 +44,7 @@ let objText = {
                  recipe : "рецепт приготовления:",
                  absent : "такой напиток отсутствует",
                  remove : "напиток удален",
+                 nameLS : "lsDrinkStorage",
                 },
 
     dishText : {enterName : "Введите название блюда",
@@ -43,6 +55,7 @@ let objText = {
                 recipe : "рецепт приготовления:",
                 absent : "такое блюдо отсутствует",
                 remove : "блюдо удалено",
+                nameLS : "lsDishStorage",
                 },
 
 };
@@ -50,8 +63,20 @@ let objText = {
 let  drinkStorage = new ObjStorageClass();
 let  dishStorage = new ObjStorageClass();
 
+function addObj (storage, nameLS) {
+    let obj = storage.getLS(nameLS);
+    
+    for(let i in obj) {
+        storage.addValue(i, obj[i]);
+    } 
+}
+
+addObj(drinkStorage, objText.drinkText.nameLS);
+addObj(dishStorage, objText.dishText.nameLS);
+
+
 let drinkInfoBtn = document.getElementById("drinkInformation");
-drinkInfoBtn.addEventListener("click", ()=>{setInformation(objText.drinkText, drinkStorage);});
+drinkInfoBtn.addEventListener("click", ()=>{setInformation(objText.drinkText, drinkStorage, objText.drinkText.nameLS);});
 
 let getDrinkInfoBtn = document.getElementById("getDrinkInformation");
 getDrinkInfoBtn.addEventListener("click", ()=>{getInformation(objText.drinkText, drinkStorage);});
@@ -64,7 +89,7 @@ getDrinkNameBtn.addEventListener("click", ()=>{getName(drinkStorage);});
 
 
 let dishInfoBtn = document.getElementById("dishInformation");
-dishInfoBtn.addEventListener("click", ()=>{setInformation(objText.dishText, dishStorage);});
+dishInfoBtn.addEventListener("click", ()=>{setInformation(objText.dishText, dishStorage, objText.dishText.nameLS);});
 
 let getDishInfoBtn = document.getElementById("getDishInformation");
 getDishInfoBtn.addEventListener("click", ()=>{getInformation(objText.dishText, dishStorage);});
@@ -75,13 +100,13 @@ delDishInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.dishText
 let getDishNameBtn = document.getElementById("getDishName");
 getDishNameBtn.addEventListener("click", ()=>{getName(dishStorage);});
 
-function setInformation(text, storage) {
+function setInformation(text, storage, nameLS) {
     let name = prompt(text.enterName, '');
     let conf = confirm(text.isVal);
     let recipe = prompt(text.enterRecipe, '');
     let yesNo = (conf) ? 'да' : 'нет';
     storage.addValue(name, {yesNo, recipe});
-    store(storage);
+    storage.saveLS(nameLS);
 }
 
 function getInformation(text, storage) {
@@ -96,7 +121,7 @@ ${text.recipe} ${info.recipe}`);
     }
 }
 
-function deleteInformation(text, storage ) {
+function deleteInformation(text, storage, nameLS) {
     let name = prompt(text.enterName, '');
     let deleteVal = storage.deleteValue(name);
     if (deleteVal) {
@@ -104,7 +129,7 @@ function deleteInformation(text, storage ) {
     } else {
         console.log(text.absent);
     }
-    store(storage);
+    storage.saveLS(nameLS);
 }
 
 function getName(storage) {
@@ -115,39 +140,6 @@ function getName(storage) {
 }
 
 
-function store(storage) {
-    if(storage == drinkStorage) {
-        localStorage.setItem('lsDrinkStorage',JSON.stringify(storage));
-    } else if(storage == dishStorage) {
-        localStorage.setItem('lsDishStorage',JSON.stringify(storage));
-    } 
- }
- 
-function getObj(storage) {
-    let objJson, drinkObj;
-
-    if(storage == drinkStorage) {
-        objJson = localStorage.getItem('lsDrinkStorage');
-
-        if(objJson) {
-            drinkObj = JSON.parse(objJson).obj;
-        } 
-
-    } else if(storage == dishStorage) {
-        objJson = localStorage.getItem('lsDishStorage');
-
-        if(objJson) {
-            drinkObj = JSON.parse(objJson).obj;
-        } 
-    }
-
-    for(let i in drinkObj) {
-        storage.addValue(i, drinkObj[i]);
-    } 
-}
-
-getObj(drinkStorage);
-getObj(dishStorage);
 
 
 
