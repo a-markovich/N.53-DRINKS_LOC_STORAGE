@@ -45,7 +45,6 @@ let objText = {
                  recipe : "рецепт приготовления:",
                  absent : "такой напиток отсутствует",
                  remove : "напиток удален",
-                 nameLS : "lsDrinkStorage",
                 },
 
     dishText : {enterName : "Введите название блюда",
@@ -56,9 +55,7 @@ let objText = {
                 recipe : "рецепт приготовления:",
                 absent : "такое блюдо отсутствует",
                 remove : "блюдо удалено",
-                nameLS : "lsDishStorage",
                 },
-
 };
 
 let  drinkStorage = new ObjStorageClass("lsDrinkStorage");
@@ -76,26 +73,26 @@ addObj(drinkStorage);
 addObj(dishStorage);
 
 let drinkInfoBtn = document.getElementById("drinkInformation");
-drinkInfoBtn.addEventListener("click", ()=>{setInformation(objText.drinkText, drinkStorage, objText.drinkText.nameLS);});
+drinkInfoBtn.addEventListener("click", ()=>{setInformation(objText.drinkText, drinkStorage);});
 
 let getDrinkInfoBtn = document.getElementById("getDrinkInformation");
 getDrinkInfoBtn.addEventListener("click", ()=>{getInformation(objText.drinkText, drinkStorage);});
 
 let delDrinkInfoBtn = document.getElementById("deleteDrinkInformation");
-delDrinkInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.drinkText, drinkStorage, objText.drinkText.nameLS);});
+delDrinkInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.drinkText, drinkStorage);});
 
 let getDrinkNameBtn = document.getElementById("getDrinkName");
 getDrinkNameBtn.addEventListener("click", ()=>{getName(drinkStorage);});
 
 
 let dishInfoBtn = document.getElementById("dishInformation");
-dishInfoBtn.addEventListener("click", ()=>{setInformation(objText.dishText, dishStorage, objText.dishText.nameLS);});
+dishInfoBtn.addEventListener("click", ()=>{setInformation(objText.dishText, dishStorage);});
 
 let getDishInfoBtn = document.getElementById("getDishInformation");
 getDishInfoBtn.addEventListener("click", ()=>{getInformation(objText.dishText, dishStorage);});
 
 let delDishInfoBtn = document.getElementById("deleteDishInformation");
-delDishInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.dishText, dishStorage, objText.dishText.nameLS);});
+delDishInfoBtn.addEventListener("click", ()=>{deleteInformation(objText.dishText, dishStorage);});
 
 let getDishNameBtn = document.getElementById("getDishName");
 getDishNameBtn.addEventListener("click", ()=>{getName(dishStorage);});
@@ -120,7 +117,7 @@ ${text.recipe} ${info.recipe}`);
     }
 }
 
-function deleteInformation(text, storage, nameLS) {
+function deleteInformation(text, storage) {
     let name = prompt(text.enterName, '');
     let deleteVal = storage.deleteValue(name);
     if (deleteVal) {
