@@ -2,7 +2,10 @@ class ObjStorageClass {
     constructor (nameLS) {
         this.nameLS = nameLS;
         this.obj = {};
-        this.obj = JSON.parse(localStorage.getItem(nameLS));
+        let objJson = localStorage.getItem(this.nameLS);
+        if (objJson) {
+            this.obj = JSON.parse(objJson);
+        }
     }
     addValue (key, value) {
         if(key) {
