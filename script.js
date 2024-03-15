@@ -22,6 +22,7 @@ class ObjStorageClass {
             delete this.obj[key];
             result = true;
         }
+        localStorage.setItem(this.nameLS, JSON.stringify(this.obj));
         return result;
     }
     getKeys () {
@@ -105,7 +106,6 @@ function deleteInformation(text, storage) {
     let deleteVal = storage.deleteValue(name);
     if (deleteVal) {
         console.log(text.remove);
-        localStorage.setItem(storage.nameLS, JSON.stringify(storage.obj));
     } else {
         console.log(text.absent);
     }
