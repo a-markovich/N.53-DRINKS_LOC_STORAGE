@@ -2,6 +2,7 @@ class ObjStorageClass {
     constructor (nameLS) {
         this.nameLS = nameLS;
         this.obj = {};
+        this.obj = JSON.parse(localStorage.getItem(nameLS));
     }
     addValue (key, value) {
         if(key) {
@@ -26,12 +27,6 @@ class ObjStorageClass {
     }
     getKeys () {
         return Object.keys(this.obj);
-    }
-    getLS () {
-        let objJson = localStorage.getItem(this.nameLS);
-        if(objJson) {
-            return JSON.parse(objJson);
-        }
     }
 }
 
@@ -60,17 +55,6 @@ let objText = {
 
 let  drinkStorage = new ObjStorageClass("lsDrinkStorage");
 let  dishStorage = new ObjStorageClass("lsDishStorage");
-
-function addObj (storage) {
-    let obj = storage.getLS();
-    
-    for(let i in obj) {
-        storage.addValue(i, obj[i]);
-    }  
-}
-
-addObj(drinkStorage);
-addObj(dishStorage);
 
 let drinkInfoBtn = document.getElementById("drinkInformation");
 drinkInfoBtn.addEventListener("click", ()=>{setInformation(objText.drinkText, drinkStorage);});
