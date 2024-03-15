@@ -2,8 +2,14 @@ class ObjStorageClass {
     constructor () {
         this.obj = {};
     }
-    addValue (key, value) {
-        this.obj[key] = value;
+    addValue (key, value, nameLS) {
+        if(key) {
+            this.obj[key] = value;
+            localStorage.setItem(`${nameLS}`,JSON.stringify(this.obj));
+        } else {
+            localStorage.setItem(`${nameLS}`,JSON.stringify(this.obj));
+        }
+
     }
     getValue (key) {
         if (key in this.obj) {
@@ -21,11 +27,6 @@ class ObjStorageClass {
     getKeys () {
         return Object.keys(this.obj);
     }
-
-    saveLS (nameLS) {
-        localStorage.setItem(`${nameLS}`,JSON.stringify(this.obj));
-    }
-
     getLS (nameLS) {
         let objJson = localStorage.getItem(`${nameLS}`);
         if(objJson) {
@@ -67,13 +68,12 @@ function addObj (storage, nameLS) {
     let obj = storage.getLS(nameLS);
     
     for(let i in obj) {
-        storage.addValue(i, obj[i]);
+        storage.addValue(i, obj[i], nameLS);
     }  
 }
 
 addObj(drinkStorage, objText.drinkText.nameLS);
 addObj(dishStorage, objText.dishText.nameLS);
-
 
 let drinkInfoBtn = document.getElementById("drinkInformation");
 drinkInfoBtn.addEventListener("click", ()=>{setInformation(objText.drinkText, drinkStorage, objText.drinkText.nameLS);});
@@ -105,8 +105,7 @@ function setInformation(text, storage, nameLS) {
     let conf = confirm(text.isVal);
     let recipe = prompt(text.enterRecipe, '');
     let yesNo = (conf) ? 'да' : 'нет';
-    storage.addValue(name, {yesNo, recipe});
-    storage.saveLS(nameLS);
+    storage.addValue(name, {yesNo, recipe}, nameLS);
 }
 
 function getInformation(text, storage) {
@@ -126,10 +125,10 @@ function deleteInformation(text, storage, nameLS) {
     let deleteVal = storage.deleteValue(name);
     if (deleteVal) {
         console.log(text.remove);
+        storage.addValue(null, null, nameLS);
     } else {
         console.log(text.absent);
     }
-    storage.saveLS(nameLS);
 }
 
 function getName(storage) {
