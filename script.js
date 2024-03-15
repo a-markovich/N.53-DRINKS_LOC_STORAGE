@@ -8,12 +8,8 @@ class ObjStorageClass {
         }
     }
     addValue (key, value) {
-        if(key) {
-            this.obj[key] = value;
-            localStorage.setItem(this.nameLS, JSON.stringify(this.obj));
-        } else {
-            localStorage.setItem(this.nameLS, JSON.stringify(this.obj));
-        }
+        this.obj[key] = value;
+        localStorage.setItem(this.nameLS, JSON.stringify(this.obj));
     }
     getValue (key) {
         if (key in this.obj) {
@@ -109,7 +105,7 @@ function deleteInformation(text, storage) {
     let deleteVal = storage.deleteValue(name);
     if (deleteVal) {
         console.log(text.remove);
-        storage.addValue(null, null);
+        localStorage.setItem(storage.nameLS, JSON.stringify(storage.obj));
     } else {
         console.log(text.absent);
     }
